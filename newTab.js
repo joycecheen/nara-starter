@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   backgroundContainer.className = "background-container";
   document.body.appendChild(backgroundContainer);
 
+  setTimeout(makeQuoteDraggable, 500);
+
   const categoriesContainer = document.getElementById("categories-container");
   const tasksContainer = document.getElementById("tasks-container");
   const taskList = document.getElementById("task-list");
@@ -16,6 +18,260 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial background image with 5 deers
   const initialBackground = "assets/original.jpg";
+
+  const encouragingMessages = [
+    "Great job! 🎉",
+    "You're making progress! 💪",
+    "Keep it up! 🌟",
+    "Way to go! 👏",
+    "Awesome work! 🙌",
+    "You're crushing it! 🔥",
+    "One step closer! 🚶‍♂️",
+    "You're doing great! 😊",
+    "Fantastic progress! 🌈",
+    "You're on a roll! 🎯",
+    "Excellent work! ⭐",
+    "That's the spirit! 🌠",
+    "Progress feels good! 💫",
+    "Well done! 🏆",
+    "You're amazing! 💕"
+  ];
+
+  const inspirationalQuotes = [
+    {
+      text: "The only way to do great work is to love what you do.",
+      author: "Steve Jobs"
+    },
+    {
+      text: "Life is what happens when you're busy making other plans.",
+      author: "John Lennon"
+    },
+    {
+      text: "The future belongs to those who believe in the beauty of their dreams.",
+      author: "Eleanor Roosevelt"
+    },
+    {
+      text: "It does not matter how slowly you go as long as you do not stop.",
+      author: "Confucius"
+    },
+    {
+      text: "You miss 100% of the shots you don't take.",
+      author: "Wayne Gretzky"
+    },
+    {
+      text: "Believe you can and you're halfway there.",
+      author: "Theodore Roosevelt"
+    },
+    {
+      text: "Everything you've ever wanted is on the other side of fear.",
+      author: "George Addair"
+    },
+    {
+      text: "The journey of a thousand miles begins with one step.",
+      author: "Lao Tzu"
+    },
+    {
+      text: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      author: "Winston Churchill"
+    },
+    {
+      text: "Happiness is not something ready-made. It comes from your own actions.",
+      author: "Dalai Lama"
+    },
+    {
+      text: "The best time to plant a tree was 20 years ago. The second best time is now.",
+      author: "Chinese Proverb"
+    },
+    {
+      text: "Your time is limited, don't waste it living someone else's life.",
+      author: "Steve Jobs"
+    },
+    {
+      text: "The only limit to our realization of tomorrow will be our doubts of today.",
+      author: "Franklin D. Roosevelt"
+    },
+    {
+      text: "When you reach the end of your rope, tie a knot in it and hang on.",
+      author: "Franklin D. Roosevelt"
+    },
+    {
+      text: "In the middle of difficulty lies opportunity.",
+      author: "Albert Einstein"
+    }
+  ];
+  
+  // Function to display a random quote
+  function displayRandomQuote() {
+    const quoteOverlay = document.getElementById('quote-overlay');
+    const quoteText = document.getElementById('quote-text');
+    const quoteAuthor = document.getElementById('quote-author');
+    
+    // Select a random quote
+    const randomIndex = Math.floor(Math.random() * inspirationalQuotes.length);
+    const quote = inspirationalQuotes[randomIndex];
+    
+    // Set the quote content
+    quoteText.textContent = `"${quote.text}"`;
+    quoteAuthor.textContent = `― ${quote.author}`;
+    
+    // Initially hide the quote overlay
+    quoteOverlay.style.opacity = '0';
+    
+    // Show the quote with a delay after the page loads
+    setTimeout(() => {
+      quoteOverlay.style.opacity = '1';
+    }, 1500);
+
+    setTimeout(makeQuoteDraggable, 1500);
+  }
+
+  function makeQuoteDraggable() {
+    const quoteOverlay = document.getElementById('quote-overlay');
+    if (!quoteOverlay) return;
+    
+    // Add close button functionality
+    const closeBtn = document.getElementById('quote-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        quoteOverlay.style.display = 'none';
+      });
+    }
+    
+    let isDragging = false;
+    let initialX, initialY;
+    let currentX = 0, currentY = 0;
+    
+    // Reset transform to allow dragging from any position
+    function resetTransform() {
+      const rect = quoteOverlay.getBoundingClientRect();
+      currentX = rect.left;
+      currentY = rect.top;
+      
+      // Reset the transform and update position
+      quoteOverlay.style.transform = 'none';
+      quoteOverlay.style.left = currentX + 'px';
+      quoteOverlay.style.top = currentY + 'px';
+    }
+    
+    // Initialize dragging
+    function startDrag(e) {
+      // For touch devices
+      if (e.type === 'touchstart') {
+        initialX = e.touches[0].clientX;
+        initialY = e.touches[0].clientY;
+      } else {
+        initialX = e.clientX;
+        initialY = e.clientY;
+      }
+      
+      // If this is the first drag, reset transform to use absolute positioning
+      if (quoteOverlay.style.transform.includes('translateX')) {
+        resetTransform();
+      }
+      
+      isDragging = true;
+      
+      // Prevent text selection during drag
+      document.body.style.userSelect = 'none';
+    }
+    
+    // Handle the dragging
+    function drag(e) {
+      if (!isDragging) return;
+      
+      e.preventDefault();
+      
+      let currentClientX, currentClientY;
+      
+      // For touch devices
+      if (e.type === 'touchmove') {
+        currentClientX = e.touches[0].clientX;
+        currentClientY = e.touches[0].clientY;
+      } else {
+        currentClientX = e.clientX;
+        currentClientY = e.clientY;
+      }
+      
+      // Calculate the new position
+      const deltaX = currentClientX - initialX;
+      const deltaY = currentClientY - initialY;
+      
+      // Update the element position
+      quoteOverlay.style.left = (currentX + deltaX) + 'px';
+      quoteOverlay.style.top = (currentY + deltaY) + 'px';
+    }
+    
+    // End dragging
+    function endDrag() {
+      if (!isDragging) return;
+      
+      // Update the final position
+      const rect = quoteOverlay.getBoundingClientRect();
+      currentX = rect.left;
+      currentY = rect.top;
+      
+      // Store the position in chrome.storage (optional)
+      if (chrome && chrome.storage) {
+        chrome.storage.local.set({
+          quotePosition: { x: currentX, y: currentY }
+        });
+      }
+      
+      isDragging = false;
+      
+      // Re-enable text selection
+      document.body.style.userSelect = '';
+    }
+    
+    // If there's a saved position, use it
+    if (chrome && chrome.storage) {
+      chrome.storage.local.get('quotePosition', (data) => {
+        if (data.quotePosition) {
+          resetTransform();
+          quoteOverlay.style.left = data.quotePosition.x + 'px';
+          quoteOverlay.style.top = data.quotePosition.y + 'px';
+        }
+      });
+    }
+    
+    // Add event listeners for mouse events
+    quoteOverlay.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+    
+    // Add event listeners for touch events (mobile support)
+    quoteOverlay.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', endDrag);
+  }
+  
+  // Function to show speech bubble with encouragement
+  function showEncouragement(x, y) {
+    const speechBubble = document.createElement('div');
+    speechBubble.className = 'speech-bubble';
+    
+    const randomIndex = Math.floor(Math.random() * encouragingMessages.length);
+    speechBubble.textContent = encouragingMessages[randomIndex];
+    
+    // Position the bubble near where the click happened
+    speechBubble.style.left = `${x - 100}px`; // Center the bubble
+    speechBubble.style.top = `${y - 100}px`; // Position above the click
+    
+    document.body.appendChild(speechBubble);
+    
+    // Show the bubble with animation
+    setTimeout(() => {
+      speechBubble.classList.add('show');
+    }, 10);
+    
+    // Hide and remove the bubble after a delay
+    setTimeout(() => {
+      speechBubble.classList.add('hide');
+      setTimeout(() => {
+        document.body.removeChild(speechBubble);
+      }, 300);
+    }, 2000);
+  }
 
   // Background images for each category
   const backgroundSets = {
@@ -669,6 +925,13 @@ document.addEventListener("DOMContentLoaded", () => {
       checkbox.addEventListener("change", () => {
         const originalIndex = tasks.indexOf(task);
         tasks[originalIndex].completed = checkbox.checked;
+        
+        // Show encouragement when checkbox is checked
+        if (checkbox.checked) {
+          // Get the position of the checked item for the speech bubble
+          const rect = checkbox.getBoundingClientRect();
+          showEncouragement(rect.left, rect.top);
+        }
 
         if (tasks[originalIndex].completed) {
           const deleteButton = taskItem.querySelector(".delete-task");
@@ -949,4 +1212,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tasksContainer.classList.remove("hidden");
   }
+  displayRandomQuote();
 });
