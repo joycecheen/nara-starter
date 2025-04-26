@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // for controlling when hovers are active
   let hoverListeners = [];
 
-  // Initial background image with 5 deers
+  // Initial background image with 5 deers 
   const initialBackground = "assets/original.jpg";
 
   const encouragingMessages = [
