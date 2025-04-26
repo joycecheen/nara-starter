@@ -59,7 +59,7 @@ Updated version from 1.0 to 1.1 in manifest.json to reflect the addition of new 
 ## Testing
 Both features were tested extensively in Chrome with the extension loaded in developer mode to ensure they:
 
-Displayed correctly on different screen sizes
-Functioned as expected when interacting with tasks
-Integrated well with the existing functionality
-Provided a positive user experience
+- Displayed correctly on different screen sizes
+- Functioned as expected when interacting with tasks
+- Integrated well with the existing functionality
+- Provided a positive user experience
