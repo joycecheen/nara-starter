@@ -1,4 +1,4 @@
-# CIS 3500: Nara Extension Starter
+# CIS 3500: Nara Extension Starter - Feature Enhancement Documentation
 
 ## Overview
 This assignment involves enhancing a Chrome extension developed by one of the Top 3 winners of the MCIT hackathon. The project provides hands-on experience in web development, API integration, and collaborative coding.
@@ -8,57 +8,58 @@ This assignment involves enhancing a Chrome extension developed by one of the To
 ## Project Description
 Nara is a Chrome extension that helps users manage their tasks and reminders efficiently. Your task is to enhance this extension by implementing new features.
 
-## Enhancement Options
-Choose one of the following enhancements to implement:
+## Enhancement Features Implemented
+### Feature 1: Speech Bubble Encouragement
+This feature displays an encouraging message in a speech bubble when a user checks off a task, providing positive reinforcement and making the experience more engaging.
+#### Implementation Details
 
-1. **Speech Bubble Encouragement**: Implement a feature where, whenever the user checks off a task, a speech or thought bubble appears near the deer with a short, encouraging message (e.g., “Great job!”, “You’re making progress!”, “Keep going!”).
-2. **Daily Gratitude Log**: Implement a small text area where users can note one thing they’re grateful for each day. Over time, they can revisit a dedicated “gratitude log” to see their positive moments. Provide an interesting method to save these entries and display them on a separate screen so users can easily access their past entries.
-3. **Mood Selection Prompt**: Implement a simple mood selection feature(e.g., happy, stressed, neutral) with a small icon or emoji. This allows users to log their emotional state quickly each day.
-4. **Rotating Weekly Challenge**: Implement a weekly challenge system—such as “Drink 8 glasses of water each day” or “Take a 10-minute walk daily.” Users can check off these mini-challenges alongside their normal tasks for extra motivation.
-5. **Inspirational Quote Overlay**: Implement a short inspirational quote or positive affirmation that appears on each new tab, displayed in a subtle text overlay.
-6. **Implement a History Feature**: Maintain a log of all tasks and reminders created by the user, allowing them to revisit past items and track progress over time.
-7. **Custom Feature**: Propose a unique feature (requires instructor/TA approval).
+- Added a speech bubble component with CSS styling for appearance and animations
+- Created an array of 15 different encouraging messages
+- Implemented functionality to show a random message when a task is checked off
+- Added animations for a smooth appearance and disappearance of the speech bubble
+- Positioned the speech bubble near where the user checks the task
 
-## Getting Started
+#### Files Modified
 
-### Step 1: Team Organization
-- Assign a team member as the **Product Manager (PM)** for Nara.
-- Ensure this PM is different from the one assigned to the Lunch Lotto project.
+- newTab.html - Added speech bubble HTML element
+- styles.css - Added speech bubble styling
+- newTab.js - Added encouragement message array and display functionality
 
-### Step 2: Repository Setup
-The PM should fork the repository:
-1. Navigate to the `nara-extension-starter` repository on GitHub.
-2. Click the **Fork** button to create a copy under their account.
+#### Technical Challenges
 
-### Step 3: Cloning the Repository
-Once the PM has forked the repository, team members should clone it locally:
-```sh
-git clone https://github.com/<PM-username>/nara-extension-starter.git
-```
+- Positioning the speech bubble appropriately near the task that was checked
+- Integrating the new code with the existing task completion functionality
 
-### Step 4: Development Workflow
-1. Open the project in a text editor (e.g., **Visual Studio Code** recommended).
-2. Make changes to the codebase.
-3. Use the following commands to commit and push your changes:
+### Feature 2: Inspirational Quote Overlay
+This feature displays an inspirational quote overlay on the page when a new tab is opened, providing motivation and a positive start to the user's browsing experience.
+#### Implementation Details
 
-```sh
-git add .
-git commit -m "feat: [feature name] added"
-git push
-```
+- Added a quote overlay component with CSS styling for a subtle, elegant appearance
+- Created an array of 15 inspirational quotes with attribution
+- Implemented functionality to select and display a random quote when a new tab is opened
+- Added a fade-in animation for the quote to appear after a short delay
 
-4. As team members contribute, collaborate using **Pull Requests (PRs)** on GitHub.
-5. Regularly sync your local repository with the latest changes:
+#### Files Modified
 
-```sh
-git pull
-```
+- newTab.html - Added quote overlay HTML elements with close button and drag handle
+- styles.css - Added quote overlay styling including positioning and interactivity
+- newTab.js - Added quotes array, display functionality, and draggable implementation
 
-6. Resolve merge conflicts as needed and ensure smooth integration.
+#### Technical Challenges
 
-## Submission
-- Submit the final version of your project as per course guidelines.
-- Include a brief write-up of your implemented features and any challenges faced.
+- Positioning the quote overlay to be visible yet not distract from the main interface
+- Implementing smooth dragging functionality that works on both desktop and mobile
+- Ensuring the quote's position persists between browsing sessions
+- Integrating close functionality that doesn't conflict with the extension's state management
+  
+#### Version Changes
 
----
-Happy coding, and good luck with Nara! 🦌
+Updated version from 1.0 to 1.1 in manifest.json to reflect the addition of new features
+
+## Testing
+Both features were tested extensively in Chrome with the extension loaded in developer mode to ensure they:
+
+Displayed correctly on different screen sizes
+Functioned as expected when interacting with tasks
+Integrated well with the existing functionality
+Provided a positive user experience
