@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       text: "Happiness is not something ready-made. It comes from your own actions.",
-      author: "Dalai Lama"
+      author: "Dalai Lama" 
     },
     {
       text: "The best time to plant a tree was 20 years ago. The second best time is now.",
